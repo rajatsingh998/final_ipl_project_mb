@@ -14,13 +14,13 @@ class fileParsing {
             FileReader filereader = new FileReader(file);
             CSVReader csvReader = new CSVReaderBuilder(filereader).withSkipLines(0).build();
             List<String[]> allData = csvReader.readAll();
-            ArrayList<HashMap<String, String>> data = new ArrayList<HashMap<String, String>>();
+            ArrayList<HashMap<String, String>> data = new ArrayList<>();
 
 
             String[] keys = allData.get(0);
             for (String[] row : allData) {
                 int counter = 0;
-                HashMap<String, String> map = new HashMap<String, String>();
+                HashMap<String, String> map = new HashMap<>();
                 for (String cell : row) {
                     map.put(keys[counter], cell);
                     counter++;
@@ -33,5 +33,5 @@ class fileParsing {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return new ArrayList<HashMap<String, String>>();}
+        return new ArrayList<>();}
 }

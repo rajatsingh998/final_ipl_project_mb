@@ -3,15 +3,13 @@ package com.company;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class getSolution {
+class getSolution {
 
-
-        private static fileParsing fileParsingObject= new fileParsing();
-        private static ArrayList<HashMap<String, String>> data=fileParsingObject.dataParsing("D:\\MY\\Mount blue\\matches.csv");;
-        private  static ArrayList<HashMap<String, String>> data1= fileParsingObject.dataParsing("D:\\MY\\Mount blue\\deliveries.csv");
-
-        public  static  HashMap<String, Integer> allSolution(int response){
-            HashMap<String, Integer> defaultMessage= new HashMap<>();
+    static  HashMap<String, Integer> allSolution(int response, String file, String file1){
+             fileParsing fileParsingObject= new fileParsing();
+             ArrayList<HashMap<String, String>> data=fileParsingObject.dataParsing(file);
+             ArrayList<HashMap<String, String>> data1= fileParsingObject.dataParsing(file1);
+             HashMap<String, Integer> defaultMessage= new HashMap<>();
             switch(response){
                 case 1:
                     noOfMatchesPlayedClass noOfMatchesPlayedObject= new noOfMatchesPlayedClass();

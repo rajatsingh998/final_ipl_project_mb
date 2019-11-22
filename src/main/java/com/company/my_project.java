@@ -15,8 +15,10 @@ public class my_project {
 
         Scanner sc = new Scanner(System.in);
         int response = sc.nextInt();
+        String file="matches.csv";
+        String file1="deliveries.csv";
 
-        HashMap<String, Integer> solution = getSolution.allSolution(response);
+        HashMap<String, Integer> solution = getSolution.allSolution(response,file, file1);
         solution.forEach((k, v) -> System.out.printf("\n %-30s : %d", k, v));
 
     }
