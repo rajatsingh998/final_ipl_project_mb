@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-public class FileParsingClass {
+class FileParsingClass {
     ArrayList<HashMap<String, String>> dataParsing(String file) {
         try {
             FileReader filereader = new FileReader(file);

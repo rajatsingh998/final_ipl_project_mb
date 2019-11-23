@@ -3,13 +3,13 @@ package com.company;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-
-public class Matches {
-    public static AllSolution noOfMatchesPlayedFun(ArrayList<HashMap<String, String>> data) {
+import static com.company.ConstantValues.*;
+class Matches {
+    static AllSolution noOfMatchesPlayedFun(ArrayList<HashMap<String, String>> data) {
         HashMap<String, Integer> map= new HashMap<>();
         String date;
         for(HashMap<String, String> i :data){
-            date=i.get("season");
+            date=i.get(SEASON);
             if(map.containsKey(date)){
                 int val=map.get(date);
                 val=val+1;
@@ -21,15 +21,14 @@ public class Matches {
         }
         HashMap<String,String> answer;
         answer= funToString(map);
-        AllSolution obj= new AllSolution(answer);
-        return  (obj);
+        return  (new AllSolution(answer));
     }
 
     static AllSolution noOfMatchesWonFun(ArrayList<HashMap<String, String>> data){
         String team;
         HashMap<String, Integer> map= new HashMap<>();
         for(HashMap<String, String> i :data){
-            team=i.get("winner");
+            team=i.get(WINNER);
             if(team.length()>0) {
                 if (map.containsKey(team)) {
                     int val = map.get(team);
@@ -40,16 +39,15 @@ public class Matches {
                 }
             }
         }
-        HashMap<String,String> answer= funToString(map);;
-        AllSolution obj= new AllSolution(answer);
-        return  (obj);
+        HashMap<String,String> answer= funToString(map);
+        return  (new AllSolution(answer));
     }
 
     static AllSolution noOfPlayerOfTheMatchFun(ArrayList<HashMap<String, String>> data){
         HashMap<String, Integer> map= new HashMap<>();
         String playerOfTheMatch;
         for(HashMap<String, String> i :data){
-            playerOfTheMatch=i.get("player_of_match");
+            playerOfTheMatch=i.get(PLAYER_OF_THE_MATCH);
             if(playerOfTheMatch.length()>0) {
                 if (map.containsKey(playerOfTheMatch)) {
                     int val = map.get(playerOfTheMatch);
@@ -62,11 +60,10 @@ public class Matches {
             }
         }
         HashMap<String,String> answer= funToString(map);
-        AllSolution obj= new AllSolution(answer);
-        return  (obj);
+        return  (new AllSolution(answer));
     }
 
-    static HashMap<String, String> funToString(HashMap<String, Integer> map){
+    private static HashMap<String, String> funToString(HashMap<String, Integer> map){
         HashMap<String, String> temp= new HashMap<>();
         for (Map.Entry<String, Integer> entry : map.entrySet()) {
                 int x = entry.getValue();

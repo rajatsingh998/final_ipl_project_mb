@@ -2,31 +2,33 @@ package com.company;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
-public class DeliveriesMatches {
+import static com.company.ConstantValues.*;
+
+class DeliveriesMatches {
     static AllSolution extraRunsFun(ArrayList<HashMap<String, String>> data,
                                     ArrayList<HashMap<String, String>> data1){
         ArrayList<String> Id= new ArrayList<>();
         String year;
         for(HashMap<String, String> i :data){
-            year=i.get("season");
-            if(year.equals("2016")){
-                Id.add(i.get("id"));
+            year=i.get(SEASON);
+            if(year.equals(YEAR_2016)){
+                Id.add(i.get(ID));
             }
         }
 
         HashMap<String, Integer> map= new HashMap<>();
         String team;
         for (HashMap<String, String> i :data1){
-            String val=i.get("match_id");
+            String val=i.get(MATCH_ID);
             if(Id.contains(val)){
-                team=i.get("bowling_team");
-                String extraRuns=i.get("extra_runs");
+                team=i.get(BOWLING_TEAM);
+                String extraRuns=i.get(EXTRA_RUNS);
 
                 if (map.containsKey(team)){
-                    int run=map.get(team);
-                    run=run+Integer.parseInt(extraRuns);
+                    int run = map.get(team) + Integer.parseInt(extraRuns);
                     map.put(team,run);
                 }
                 else{
@@ -35,9 +37,8 @@ public class DeliveriesMatches {
                 }
             }
         }
-        HashMap<String,String> answer= funToString(map);;
-        AllSolution obj= new AllSolution(answer);
-        return  (obj);
+        HashMap<String,String> answer= funToString(map);
+        return  (new AllSolution(answer));
     }
 
 
@@ -45,9 +46,9 @@ public class DeliveriesMatches {
                                               ArrayList<HashMap<String, String>> data1) {
         ArrayList<String> id= new ArrayList<>();
         for(HashMap<String, String> i :data){
-            String year=i.get("season");
-            if(year.equals("2015")){
-                id.add(i.get("id"));
+            String year=i.get(SEASON);
+            if(year.equals(YEAR_2015)){
+                id.add(i.get(ID));
             }
         }
 
@@ -55,17 +56,16 @@ public class DeliveriesMatches {
         HashMap<String, Float> temp= new HashMap<>();
         HashMap<String, Integer> bowl= new HashMap<>();
         for(HashMap<String, String> i :data1){
-            String val=i.get("match_id");
+            String val=i.get(MATCH_ID);
             if(id.contains(val)){
-                String playerName=i.get("bowler");
-                String totalRuns= i.get("total_runs");
+                String playerName=i.get(BOWLER);
+                String totalRuns= i.get(TOTAL_RUNS);
 
                 if(player.containsKey(playerName)){
-                    int run=player.get(playerName);
-                    run=run+Integer.parseInt(totalRuns);
+                    int run = player.get(playerName) + Integer.parseInt(totalRuns);
 
                     int noOfBall=bowl.get(playerName);
-                    noOfBall=noOfBall+1;
+                    noOfBall++;
 
                     player.put(playerName,run);
                     bowl.put(playerName, noOfBall);
@@ -81,8 +81,8 @@ public class DeliveriesMatches {
         }
 
         for(String key: player.keySet()){
-            int totalBall=bowl.get(key);
-            int over=(totalBall/6);
+           float totalBall=bowl.get(key);
+            float over=(totalBall/OVER);
             int totalRuns= player.get(key);
 
            float eco=(totalRuns/over);
@@ -90,24 +90,23 @@ public class DeliveriesMatches {
 
         }
         SortByTheValues sortByValueObject= new SortByTheValues();
-        HashMap<String, Float> finals=sortByValueObject.sortByValueFun(temp);
-        HashMap<String, Float> ans= new HashMap<>();
+        LinkedHashMap<String, Float> finals=sortByValueObject.sortByValueFun(temp);
+        LinkedHashMap<String, Float> ans= new LinkedHashMap<>();
         int i=1;
         for (Map.Entry<String, Float> entry : finals.entrySet())
         {
             ans.put(entry.getKey(),entry.getValue());
             i++;
-            if(i>3){
+            if(i>NO_OF_TOP_ECONOMICAL_BOWLERS){
                 break;
             }
         }
 
-        HashMap<String,String> answer= floatToString(ans);;
-        AllSolution obj= new AllSolution(answer);
-        return  (obj);
+        HashMap<String,String> answer= floatToString(ans);
+        return  (new AllSolution(answer));
     }
 
-    static HashMap<String, String> funToString(HashMap<String, Integer> map){
+    private static HashMap<String, String> funToString(HashMap<String, Integer> map){
         HashMap<String, String> temp = new HashMap<>();
         for( Map.Entry<String, Integer> entry : map.entrySet()){
             int x= entry.getValue();
@@ -116,8 +115,8 @@ public class DeliveriesMatches {
         return temp;
     }
 
-    static HashMap<String, String> floatToString(HashMap<String, Float> map){
-        HashMap<String, String> temp = new HashMap<>();
+    private static HashMap<String, String> floatToString(HashMap<String, Float> map){
+        LinkedHashMap<String, String> temp = new LinkedHashMap<>();
         for( Map.Entry<String, Float> entry : map.entrySet()){
            float x= entry.getValue();
             String strfloat = String.format("%.2f", x);
